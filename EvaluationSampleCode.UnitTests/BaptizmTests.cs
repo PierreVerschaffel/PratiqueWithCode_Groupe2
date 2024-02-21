@@ -3,30 +3,50 @@ namespace EvaluationSampleCode.UnitTests
     [TestClass]
     public class BaptizmTests
     {
-        private ClergyMember _clergyMember;
 
-        [TestInitialize]
-        public void Init()
+
+        [TestMethod]
+        public void CanBeBaptizedBy_WithPriestClergyMember_ReturnTrue()
         {
-            _clergyMember = new ClergyMember();
+            var clergyMember = new ClergyMember();
+            clergyMember.IsPriest = true;
+            var baptizm = new Baptizm(clergyMember);
+
+            var result = baptizm.CanBeBaptizedBy(clergyMember);
+
+            Assert.IsTrue(result);
         }
 
         [TestMethod]
-        public void CanBeBaptizedBy_WithAClergyMember_ReturnFalse()
+        public void CanBeBaptizedBy_WithPopeClergyMember_ReturnTrue()
         {
-            var baptizm = new Baptizm(_clergyMember);
+            var clergyMember = new ClergyMember();
+            clergyMember.IsPope = true;
+            var baptizm = new Baptizm(clergyMember);
 
-            var result = baptizm.CanBeBaptizedBy(_clergyMember);
+            var result = baptizm.CanBeBaptizedBy(clergyMember);
+
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void CanBeBaptizedBy_WithSimpleClergyMember_ReturnFalse()
+        {
+            var clergyMember = new ClergyMember();
+            var baptizm = new Baptizm(clergyMember);
+
+            var result = baptizm.CanBeBaptizedBy(clergyMember);
 
             Assert.IsFalse(result);
         }
 
         [TestMethod]
-        public void CanBeTeachedBy_WithAClergyMember_ReturnTrue()
+        public void CanBeTeachedBy_WithClergyMember_ReturnTrue()
         {
-            var baptizm = new Baptizm(_clergyMember);
+            var clergyMember = new ClergyMember();
+            var baptizm = new Baptizm(clergyMember);
 
-            var result = baptizm.CanBeTeachedBy(_clergyMember);
+            var result = baptizm.CanBeTeachedBy(clergyMember);
 
             Assert.IsTrue(result);
         }
